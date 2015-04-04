@@ -1,0 +1,18 @@
+AllCops:
+  Exclude:
+    - vendor/**/*
+
+Metrics/LineLength:
+  Max: 200
+
+Style/FileName:
+  Enabled: false
+
+Style/HashSyntax:
+  EnforcedStyle: hash_rockets
+  Exclude:
+    - spec/**/*
+    - Rakefile
+
+Style/SingleSpaceBeforeFirstArg:
+  Enabled: false

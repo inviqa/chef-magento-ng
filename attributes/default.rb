@@ -1,5 +1,6 @@
 %w( apache nginx ).each do |type|
   default[type]['shared_config']['magento'] = {
+    'clustered' => false,
     'type' => 'magento',
     'protocols' => ['http', 'https'],
     'restricted_dirs' => [

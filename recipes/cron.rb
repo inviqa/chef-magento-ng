@@ -13,7 +13,11 @@
 
     if site['type'] == 'magento'
       cron_d "magento-#{name}" do
-        command "sh #{site['docroot']}/cron.sh"
+        if !site['clustered']
+          command "sh #{site['docroot']}/cron.sh"
+        else
+          command "bash -c '[ -f #{site['clustered']['primary_indicator']} ] && sh #{site['docroot']}/cron.sh'"
+        end
 
         if (!site['cron'].nil?) && site['cron']['user']
           user site['cron']['user']

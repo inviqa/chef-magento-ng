@@ -7,3 +7,5 @@ long_description 'Installs/Configures magento-ng'
 version          '0.1.0'
 
 depends 'config-driven-helper', '~> 1.3.5'
+depends 'cron', '~> 1.4'
+depends 'php-fpm'

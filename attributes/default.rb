@@ -47,6 +47,7 @@ default['magento']['global']['extra_params'] = {
     'protocols' => ['http', 'https'],
     'restricted_dirs' => [
       '/app/',
+      '/downloader/',
       '/includes/',
       '/lib/',
       '/media/downloadable/',

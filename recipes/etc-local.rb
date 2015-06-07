@@ -16,7 +16,7 @@
       ].select { |attr| magento[attr].nil? }.map { |attr| %Q{node['#{type}']['sites']['#{name}']['magento']['#{attr}']} }
 
       unless missing_attrs.empty?
-        Chef::Application.fatal! "You must set #{missing_attrs.join(', ')} in chef-solo mode."
+        raise "You must set #{missing_attrs.join(', ')} in chef-solo mode."
       end
     else
       # generate all passwords

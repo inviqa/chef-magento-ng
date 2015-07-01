@@ -4,7 +4,7 @@ maintainer_email 'athompson@inviqa.com'
 license          'All rights reserved'
 description      'Installs/Configures magento-ng'
 long_description 'Installs/Configures magento-ng'
-version          '0.1.0'
+version          '0.1.1'
 
 depends 'config-driven-helper', '~> 1.3.5'
 depends 'cron', '~> 1.4'

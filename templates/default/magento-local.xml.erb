@@ -21,62 +21,24 @@
         <% end %>
         <resources>
             <db>
-                <table_prefix><![CDATA[]]></table_prefix>
+                <table_prefix><![CDATA[<%= @magento['table_prefix'] %>]]></table_prefix>
             </db>
-            <core_write>
+            <% @magento['db_connections'].each do |name, connection|
+                next if connection.nil? %>
+            <<%= connection['name_override'] || name %>>
                 <connection>
-                    <use>default_write</use>
+                    <% if connection['use'] %>
+                    <use><![CDATA[<%= connection['use'] %>]]></use>
+                    <% else %>
+                      <% @magento['db'].merge(connection).each do |key, value|
+                           key = 'dbname' if key == 'database'
+                           next if value.nil? %>
+                    <<%= key %>><![CDATA[<%= value %>]]></<%= key %>>
+                      <% end %>
+                    <% end %>
                 </connection>
-            </core_write>
-            <core_read>
-                <connection>
-                    <use>default_read</use>
-                </connection>
-            </core_read>
-            <default_setup>
-                <connection>
-                    <host><![CDATA[<%= @magento['db']['host'] %>]]></host>
-                    <username><![CDATA[<%= @magento['db']['username'] %>]]></username>
-                    <password><![CDATA[<%= @magento['db']['password'] %>]]></password>
-                    <dbname><![CDATA[<%= @magento['db']['database'] %>]]></dbname>
-                    <persistent><![CDATA[0]]></persistent><!-- Persistent DB connection true / false / empty=false -->
-                    <active>1</active>
-                    <use />
-                    <model><%= @magento['db']['model']%></model>
-                    <initStatements>SET NAMES utf8</initStatements>
-                    <type>pdo_mysql</type>
-                </connection>
-            </default_setup>
-            <default_read>
-                  <connection>
-                      <host><![CDATA[<%= @magento['db']['read']['host'] %>]]></host>
-                      <username><![CDATA[<%= @magento['db']['read']['username'] ? @magento['db']['read']['username'] : @magento['db']['username']%>]]></username>
-                      <password><![CDATA[<%= @magento['db']['read']['password'] ? @magento['db']['read']['password'] : @magento['db']['password']%>]]></password>
-                      <dbname><![CDATA[<%= @magento['db']['read']['database'] ? @magento['db']['read']['database'] : @magento['db']['database'] %>]]></dbname>
-                      <type><![CDATA[pdo_mysql]]></type>
-                      <persistent><![CDATA[0]]></persistent><!-- Persistent DB connection true / false / empty=false -->
-                      <active>1</active>
-                      <use />
-                      <model><%= @magento['db']['read']['model'] ? @magento['db']['read']['model'] : @magento['db']['model']%></model>
-                      <initStatements>SET NAMES utf8</initStatements>
-                      <type>pdo_mysql</type>
-                  </connection>
-              </default_read>
-              <default_write>
-                  <connection>
-                      <host><![CDATA[<%= @magento['db']['write']['host'] %>]]></host>
-                      <username><![CDATA[<%= @magento['db']['write']['username'] ? @magento['db']['write']['username'] : @magento['db']['username']%>]]></username>
-                      <password><![CDATA[<%= @magento['db']['write']['password'] ? @magento['db']['write']['password'] : @magento['db']['password']%>]]></password>
-                      <dbname><![CDATA[<%= @magento['db']['write']['database'] ? @magento['db']['write']['database'] : @magento['db']['database']%>]]></dbname>
-                      <type><![CDATA[pdo_mysql]]></type>
-                      <persistent><![CDATA[0]]></persistent><!-- Persistent DB connection true / false / empty=false -->
-                      <active>1</active>
-                      <use />
-                      <model><%= @magento['db']['write']['model'] ? @magento['db']['write']['model'] : @magento['db']['model']%></model>
-                      <initStatements>SET NAMES utf8</initStatements>
-                      <type>pdo_mysql</type>
-                  </connection>
-              </default_write>
+            </<%= connection['name_override'] || name %>>
+            <% end %>
         </resources>
         <% if @magento['app']['multi_session_save'] === 'redis' %>
         <session_save><![CDATA[db]]></session_save>

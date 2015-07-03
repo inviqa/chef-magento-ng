@@ -1,9 +1,13 @@
 default['magento']['db']['host'] = "localhost"
 default['magento']['db']['database'] = "magentodb"
 default['magento']['db']['username'] = "magentouser"
+default['magento']['db']['persistent'] = '0'
+default['magento']['db']['active'] = '1'
 default['magento']['db']['model'] = "mysql4"
-default['magento']['db']['read']['host'] = "localhost"
-default['magento']['db']['write']['host'] = "localhost"
+default['magento']['db']['initStatements'] = 'SET NAMES utf8'
+default['magento']['db']['type'] = 'pdo_mysql'
+
+default['magento']['db_connections']['default_setup'] = {}
 
 default['magento']['app']['base_path'] = "public"
 default['magento']['app']['locale'] = "en_GB"

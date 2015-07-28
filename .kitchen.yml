@@ -10,6 +10,12 @@ platforms:
   - name: centos-7.0
 
 suites:
-  - name: default
+  - name: cron
     run_list:
-      - recipe[magento-ng::default]
+      - recipe[magento-ng::cron]
+  - name: etc-local
+    run_list:
+      - recipe[magento-ng::etc-local]
+  - name: stack
+    run_list:
+      - recipe[magento-ng::stack]

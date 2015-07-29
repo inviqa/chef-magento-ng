@@ -5,8 +5,8 @@ driver:
     - ./test/.Vagrantfile.disable-berkshelf.rb
 
 provisioner:
-  name: chef_zero
-  require_chef_omnibus: 12.3
+  name: chef_solo
+  chef_omnibus_install_options: -d /tmp/vagrant-cache/vagrant_omnibus
 
 platforms:
   - name: centos-5.11
@@ -34,6 +34,9 @@ suites:
             server_name: "test.dev"
             docroot: "/docroot"
             type: "magento"
+            magento:
+              app:
+                crypt_key: "foo"
   - name: stack
     run_list:
       - recipe[magento-ng::stack]
@@ -44,3 +47,6 @@ suites:
             server_name: "test.dev"
             docroot: "/docroot"
             type: "magento"
+            magento:
+              app:
+                crypt_key: "foo"

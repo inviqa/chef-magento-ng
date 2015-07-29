@@ -6,6 +6,7 @@ driver:
 
 provisioner:
   name: chef_zero
+  require_chef_omnibus: 12.3
 
 platforms:
   - name: centos-5.11
@@ -16,9 +17,30 @@ suites:
   - name: cron
     run_list:
       - recipe[magento-ng::cron]
+    attributes:
+      nginx:
+        sites:
+          site1:
+            server_name: "test.dev"
+            docroot: "/docroot"
+            type: "magento"
   - name: etc-local
     run_list:
       - recipe[magento-ng::etc-local]
+    attributes:
+      nginx:
+        sites:
+          site1:
+            server_name: "test.dev"
+            docroot: "/docroot"
+            type: "magento"
   - name: stack
     run_list:
       - recipe[magento-ng::stack]
+    attributes:
+      nginx:
+        sites:
+          site1:
+            server_name: "test.dev"
+            docroot: "/docroot"
+            type: "magento"

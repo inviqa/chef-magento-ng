@@ -1,8 +1,12 @@
 driver:
   name: vagrant
+  vagrantfiles:
+    - ./test/.Vagrantfile.cachier.rb
+    - ./test/.Vagrantfile.disable-berkshelf.rb
 
 provisioner:
-  name: chef_zero
+  name: chef_solo
+  chef_omnibus_install_options: -d /tmp/vagrant-cache/vagrant_omnibus
 
 platforms:
   - name: centos-5.11
@@ -10,6 +14,39 @@ platforms:
   - name: centos-7.0
 
 suites:
-  - name: default
+  - name: cron
     run_list:
-      - recipe[magento-ng::default]
+      - recipe[magento-ng::cron]
+    attributes:
+      nginx:
+        sites:
+          site1:
+            server_name: "test.dev"
+            docroot: "/docroot"
+            type: "magento"
+  - name: etc-local
+    run_list:
+      - recipe[magento-ng::etc-local]
+    attributes:
+      nginx:
+        sites:
+          site1:
+            server_name: "test.dev"
+            docroot: "/docroot"
+            type: "magento"
+            magento:
+              app:
+                crypt_key: "foo"
+  - name: stack
+    run_list:
+      - recipe[magento-ng::stack]
+    attributes:
+      nginx:
+        sites:
+          site1:
+            server_name: "test.dev"
+            docroot: "/docroot"
+            type: "magento"
+            magento:
+              app:
+                crypt_key: "foo"

@@ -30,6 +30,14 @@
       config_path = site['docroot']
     end
 
+    directory "#{config_path}/app/etc" do
+      recursive true
+      action :create
+      not_if do
+        ::File.exist?("#{config_path}/app/etc")
+      end
+    end
+
     template "#{config_path}/app/etc/local.xml" do
       source "magento-local.xml.erb"
       mode 0644

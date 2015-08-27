@@ -12,6 +12,8 @@
     next unless site['type'] == 'magento'
 
     if site['type'] == 'magento'
+      include_recipe 'cron::default'
+
       cron_d "magento-#{name}" do
         if !site['clustered']
           command "sh #{site['docroot']}/cron.sh"

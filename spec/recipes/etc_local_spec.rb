@@ -525,8 +525,8 @@ describe 'magento-ng::etc-local' do
 
       it 'should write out the configuration with cache backend being redis' do
         expect(chef_run).to render_file(configuration_file)
-        .with_content(match(%r{<cache>.*<backend><!\[CDATA\[Cm_Cache_Backend_Redis\]\]></backend>.*</cache>}m))
-      end
+          .with_content(match(%r{<cache>.*<backend><!\[CDATA\[Cm_Cache_Backend_Redis\]\]></backend>.*</cache>}m))
+      end 
 
       it 'should write out the configuration with redis cache settings' do
         expected = %r{
@@ -566,7 +566,7 @@ describe 'magento-ng::etc-local' do
 
       it 'should write out the configuration with cache backend being redis' do
         expect(chef_run).to render_file(configuration_file)
-        .with_content(match(%r{<cache>.*<backend><!\[CDATA\[Cm_Cache_Backend_Redis\]\]></backend>.*</cache>}m))
+          .with_content(match(%r{<cache>.*<backend><!\[CDATA\[Cm_Cache_Backend_Redis\]\]></backend>.*</cache>}m))
       end
 
       it 'should write out the configuration with redis cache settings' do
@@ -583,6 +583,75 @@ describe 'magento-ng::etc-local' do
               <compress_threshold>#{cdata_open}512#{cdata_close}</compress_threshold>.*
               <compression_lib>#{cdata_open}lzf#{cdata_close}</compression_lib>.*
             </backend_options>.*
+          </cache>
+        }mx
+        expect(chef_run).to render_file(configuration_file).with_content(match(expected))
+      end
+    end
+
+    context 'with cache using default memcached' do
+      cached(:chef_run) do
+        half_set_up_chef_run.dup
+        half_set_up_chef_run.node.set['nginx']['sites']['project']['magento']['app']['backend_cache'] = 'memcached'
+        half_set_up_chef_run.converge(described_recipe)
+      end
+
+      it 'should write out the configuration with cache backend being memcached' do
+        expect(chef_run).to render_file(configuration_file)
+          .with_content(match(%r{<cache>.*<backend><!\[CDATA\[memcached\]\]></backend>.*</cache>}m))
+      end 
+
+      it 'should write out the configuration with memcached cache settings and no servers' do
+        expected = %r{
+          <cache>.*
+            <memcached>.*
+              <servers><!--[a-zA-Z\s]*-->\s*</servers>.*
+            </memcached>.*
+          </cache>
+        }mx
+        expect(chef_run).to render_file(configuration_file).with_content(match(expected))
+      end
+    end
+
+    context 'with cache using custom memcached' do
+      cached(:chef_run) do
+        half_set_up_chef_run.dup
+        half_set_up_chef_run.node.set['nginx']['sites']['project']['magento']['app']['backend_cache'] = 'memcached'
+        half_set_up_chef_run.node.set['nginx']['sites']['project']['magento']['app']['backend_servers'] = [
+          {
+            'host' => '10.0.0.7',
+            'port' => '11211',
+            'persistent' => '1',
+            'weight' => '11',
+            'timeout' => '2',
+            'retry_interval' => '10',
+            'status' => '1'
+          }
+        ]
+        half_set_up_chef_run.converge(described_recipe)
+      end
+
+      it 'should write out the configuration with cache backend being memcached' do
+        expect(chef_run).to render_file(configuration_file)
+          .with_content(match(%r{<cache>.*<backend><!\[CDATA\[memcached\]\]></backend>.*</cache>}m))
+      end
+
+      it 'should write out the configuration with redis cache settings' do
+        expected = %r{
+          <cache>.*
+            <memcached>.*
+              <servers>\s*
+                <server>\s*
+                  <host>#{cdata_open}10.0.0.7#{cdata_close}</host>.*
+                  <port>#{cdata_open}11211#{cdata_close}</port>.*
+                  <persistent>#{cdata_open}1#{cdata_close}</persistent>.*
+                  <weight>#{cdata_open}11#{cdata_close}</weight>.*
+                  <timeout>#{cdata_open}2#{cdata_close}</timeout>.*
+                  <retry_interval>#{cdata_open}10#{cdata_close}</retry_interval>.*
+                  <status>#{cdata_open}1#{cdata_close}</status>.*
+                </server>
+              </servers>.*
+            </memcached>.*
           </cache>
         }mx
         expect(chef_run).to render_file(configuration_file).with_content(match(expected))

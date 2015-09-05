@@ -157,6 +157,27 @@ describe 'magento-ng::etc-local' do
     end
   end
 
+  context 'with chef server' do
+    before do
+      allow_any_instance_of(::Chef::Recipe).to receive(:secure_password).and_return('I am a random string!')
+    end
+
+    cached(:chef_run) do
+      ChefSpec::ServerRunner.new do |node|
+        node.set['nginx']['sites']['project']['type'] = 'magento'
+        node.set['nginx']['sites']['project']['docroot'] = '/var/www/project/public'
+      end.converge(described_recipe)
+    end
+
+    let(:configuration_file) { '/var/www/project/public/app/etc/local.xml' }
+
+    it 'should not raise an error if crypt key is not specifed' do
+      expect { chef_run }.to_not raise_error
+    end
+
+    it_behaves_like 'default local.xml'
+  end
+
   context 'with default attributes and one site without capistrano' do
     cached(:chef_run) do
       ChefSpec::SoloRunner.new do |node|

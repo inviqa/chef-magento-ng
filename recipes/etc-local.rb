@@ -20,7 +20,9 @@
       end
     else
       # generate all passwords
-      node.set_unless['#{type}']['sites']['#{name}']['magento']['app']['#{attr}'] = secure_password
+      ::Chef::Recipe.send(:include, Opscode::OpenSSL::Password)
+      node.set_unless[type]['sites'][name]['magento']['app']['crypt_key'] = secure_password
+      magento['app']['crypt_key'] = node[type]['sites'][name]['magento']['app']['crypt_key']
       node.save
     end
 

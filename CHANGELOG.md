@@ -1,19 +1,29 @@
-## 0.2.1
+## 0.2.1 (9 July 2015)
 
- - Fix crypt key attribute path
+BUG FIXES
 
-## 0.2.0
+ * Fix crypt key attribute path
 
- - Reduce duplication in database configuration
- - Reduce restirctions on dependencies
+## 0.2.0 (3 July 2015)
 
-## 0.1.1
+IMPROVEMENTS
 
- - Fix app attribute path
- - Add stack recipe
- - Use raise in place of fatal exceptions
+ * Reduce duplication in database configuration
+ * Reduce restirctions on dependencies
 
-## 0.1.0 (unreleased)
+## 0.1.1 (1 July 2015)
 
 FEATURES
-  - Initial release of magento-ng
+
+ * Add stack recipe
+
+BUG FIXES
+
+ * Fix app attribute path
+ * Use raise in place of fatal exceptions
+
+## 0.1.0 (7 June 2015)
+
+FEATURES
+
+  * Initial release of magento-ng

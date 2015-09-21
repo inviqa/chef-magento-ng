@@ -14,32 +14,22 @@
     if site['type'] == 'magento'
       include_recipe 'cron::default'
 
+      primary_indicator_check = ''
+      if site['clustered']
+        primary_indicator_check = "bash -c '[ -f #{site['clustered']['primary_indicator']} ] && "
+      end
+
       cron_d "magento-#{name}" do
 
         if site['aoe_scheduler']
-          if !site['clustered']
-            command "sh #{site['docroot']}/schedule_cron.sh --mode always"
-            command "sh #{site['docroot']}/schedule_cron.sh --mode default"
+          command "#{primary_indicator_check}sh #{site['docroot']}/schedule_cron.sh --mode always"
+          command "#{primary_indicator_check}sh #{site['docroot']}/schedule_cron.sh --mode default"
 
-            if site['watchdog']
-              command "cd #{site['docroot']}/shell && /usr/bin/php scheduler.php --action watchdog"
-            end
-
-          else
-            command "bash -c '[ -f #{site['clustered']['primary_indicator']} ] && sh #{site['docroot']}/schedule_cron.sh --mode always'"
-            command "bash -c '[ -f #{site['clustered']['primary_indicator']} ] && sh #{site['docroot']}/schedule_cron.sh --mode default'"
-
-            if site['watchdog']
-              command "bash -c '[ -f #{site['clustered']['primary_indicator']} ] && cd #{site['docroot']}/shell && /usr/bin/php scheduler.php --action watchdog'"
-            end
+          if site['watchdog']
+            command "#{primary_indicator_check}cd #{site['docroot']}/shell && /usr/bin/php scheduler.php --action watchdog"
           end
-
         else
-            if !site['clustered']
-              command "sh #{site['docroot']}/cron.sh"
-            else
-              command "bash -c '[ -f #{site['clustered']['primary_indicator']} ] && sh #{site['docroot']}/cron.sh'"
-            end
+          command "#{primary_indicator_check}sh #{site['docroot']}/cron.sh"
         end
 
         if (!site['cron'].nil?) && site['cron']['user']

@@ -1,3 +1,9 @@
+## 0.3.0 (21 September 2015)
+
+FEATURES
+
+  * Add support for AOE Scheduler cron and watchdog
+
 ## 0.2.1 (9 July 2015)
 
 BUG FIXES

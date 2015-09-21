@@ -44,6 +44,13 @@ default['magento']['global']['extra_params'] = {
   'skip_process_modules_updates_dev_mode' => 1,
 }
 
+default['magento']['cron_type'] = 'standard'
+default['magento']['cron']['minute'] = '*'
+default['magento']['aoe_scheduler']['always']['minute'] = '*'
+default['magento']['aoe_scheduler']['default']['minute'] = '*'
+default['magento']['aoe_scheduler']['watchdog']['minute'] = '*/10'
+default['magento']['aoe_scheduler']['watchdog']['enabled'] = true
+
 %w( apache nginx ).each do |type|
   default[type]['shared_config']['magento'] = {
     'clustered' => false,

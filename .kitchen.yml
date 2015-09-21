@@ -24,6 +24,18 @@ suites:
             server_name: "test.dev"
             docroot: "/docroot"
             type: "magento"
+  - name: cron-aoe
+    run_list:
+      - recipe[magento-ng::cron]
+    attributes:
+      nginx:
+        sites:
+          site1:
+            aoe_scheduler: true
+            watchdog: true
+            server_name: "test.dev"
+            docroot: "/docroot"
+            type: "magento"
   - name: etc-local
     run_list:
       - recipe[magento-ng::etc-local]

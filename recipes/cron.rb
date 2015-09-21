@@ -15,10 +15,31 @@
       include_recipe 'cron::default'
 
       cron_d "magento-#{name}" do
-        if !site['clustered']
-          command "sh #{site['docroot']}/cron.sh"
+
+        if site['aoe_scheduler']
+          if !site['clustered']
+            command "sh #{site['docroot']}/schedule_cron.sh --mode always"
+            command "sh #{site['docroot']}/schedule_cron.sh --mode default"
+
+            if site['watchdog']
+              command "cd #{site['docroot']}/shell && /usr/bin/php scheduler.php --action watchdog"
+            end
+
+          else
+            command "bash -c '[ -f #{site['clustered']['primary_indicator']} ] && sh #{site['docroot']}/schedule_cron.sh --mode always'"
+            command "bash -c '[ -f #{site['clustered']['primary_indicator']} ] && sh #{site['docroot']}/schedule_cron.sh --mode default'"
+
+            if site['watchdog']
+              command "bash -c '[ -f #{site['clustered']['primary_indicator']} ] && cd #{site['docroot']}/shell && /usr/bin/php scheduler.php --action watchdog'"
+            end
+          end
+
         else
-          command "bash -c '[ -f #{site['clustered']['primary_indicator']} ] && sh #{site['docroot']}/cron.sh'"
+            if !site['clustered']
+              command "sh #{site['docroot']}/cron.sh"
+            else
+              command "bash -c '[ -f #{site['clustered']['primary_indicator']} ] && sh #{site['docroot']}/cron.sh'"
+            end
         end
 
         if (!site['cron'].nil?) && site['cron']['user']

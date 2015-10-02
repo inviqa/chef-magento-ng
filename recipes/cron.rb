@@ -39,23 +39,14 @@
         end
 
       if magento['cron_type'] == 'aoe_scheduler'
-        cron_d "magento-#{name}-aoe-always" do
-          command "#{primary_indicator_check}sh #{site['docroot']}/scheduler_cron.sh --mode always"
-          minute magento['aoe_scheduler']['always']['minute']
-          user cron_user
-        end
-
-        cron_d "magento-#{name}-aoe-default" do
-          command "#{primary_indicator_check}sh #{site['docroot']}/scheduler_cron.sh --mode default"
-          minute magento['aoe_scheduler']['default']['minute']
-          user cron_user
-        end
-        if magento['aoe_scheduler']['watchdog']['enabled']
-          cron_d "magento-#{name}-aoe-watchdog" do
-            command "#{primary_indicator_check}cd #{site['docroot']}/shell && /usr/bin/php scheduler.php --action watchdog"
-            minute magento['aoe_scheduler']['watchdog']['minute']
-            user cron_user
-          end
+        template "/etc/cron.d/magento-#{name}" do
+          source 'aoe-cron.erb'
+          variables ({
+            :crons => magento['aoe_scheduler'],
+            :cron_user => cron_user,
+            :primary_indicator_check => primary_indicator_check,
+            :site => site,
+          })
         end
       else
         cron_d "magento-#{name}" do

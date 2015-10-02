@@ -31,11 +31,18 @@ suites:
       nginx:
         sites:
           site1:
-            aoe_scheduler: true
-            watchdog: true
             server_name: "test.dev"
             docroot: "/docroot"
             type: "magento"
+            magento:
+              cron_type: aoe_scheduler
+              aoe_scheduler:
+                custom_group:
+                  mode: default
+                  exclude_groups: excludegroup
+                custom_job:
+                  mode: default
+                  include_jobs: includejob
   - name: etc-local
     run_list:
       - recipe[magento-ng::etc-local]

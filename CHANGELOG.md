@@ -1,3 +1,9 @@
+## 0.3.1 (02 October 2015)
+
+FEATURES
+
+  * Add support for include/exclude groups/jobs in AOE Scheduler cron
+
 ## 0.3.0 (21 September 2015)
 
 FEATURES

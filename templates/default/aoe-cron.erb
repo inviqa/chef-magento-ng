@@ -1,0 +1,23 @@
+# Crontab for <%=@name%> managed by Chef. Changes will be overwritten.
+
+<% @crons.each do |name, cron|
+  next unless cron['enabled'].nil? || cron['enabled']
+  if cron['mode'] == 'watchdog' %>
+<%=cron['minute'] || '*/5' %> * * * * <%=@cron_user%> <%=@primary_indicator_check%>cd <%=@site['docroot']%>/shell && /usr/bin/php scheduler.php --action watchdog
+<%
+  else
+    extra = ''
+    %w(
+      include_groups
+      exclude_groups
+      include_jobs
+      exclude_jobs
+    ).each do |key|
+      next unless cron[key]
+      extra += " --#{key.gsub(/_(.)/) {|e| $1.upcase}} #{cron[key]}"
+    end
+%>
+<%=cron['minute'] || '*'%> * * * * <%=@cron_user%> <%=@primary_indicator_check%>sh <%=@site['docroot']%>/scheduler_cron.sh --mode <%=cron['mode']%><%=extra%>
+<% 
+  end
+end %>

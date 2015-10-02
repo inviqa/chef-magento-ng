@@ -46,10 +46,12 @@ default['magento']['global']['extra_params'] = {
 
 default['magento']['cron_type'] = 'standard'
 default['magento']['cron']['minute'] = '*'
+default['magento']['aoe_scheduler']['always']['mode'] = 'always'
 default['magento']['aoe_scheduler']['always']['minute'] = '*'
+default['magento']['aoe_scheduler']['default']['mode'] = 'default'
 default['magento']['aoe_scheduler']['default']['minute'] = '*'
+default['magento']['aoe_scheduler']['watchdog']['mode'] = 'watchdog'
 default['magento']['aoe_scheduler']['watchdog']['minute'] = '*/10'
-default['magento']['aoe_scheduler']['watchdog']['enabled'] = true
 
 %w( apache nginx ).each do |type|
   default[type]['shared_config']['magento'] = {

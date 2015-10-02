@@ -44,47 +44,7 @@ describe 'magento-ng::cron' do
 
    it "creates project cron.d file using aoe schdule and watchdog" do
       expect(chef_run).not_to create_cron_d('magento-project')
-      expect(chef_run).to create_cron_d('magento-project-aoe-always').with(
-        command: 'sh /var/www/project/current/public/scheduler_cron.sh --mode always',
-        minute: '*',
-        user: 'www-data'
-      )
-      expect(chef_run).to create_cron_d('magento-project-aoe-default').with(
-        command: 'sh /var/www/project/current/public/scheduler_cron.sh --mode default',
-        minute: '*',
-        user: 'www-data'
-      )
-      expect(chef_run).to create_cron_d('magento-project-aoe-watchdog').with(
-        command: 'cd /var/www/project/current/public/shell && /usr/bin/php scheduler.php --action watchdog',
-        minute: '*/10',
-        user: 'www-data'
-      )
-    end
-  end
-
-   context 'with aoe schedule but no watchdog ' do
-    let(:chef_run) do
-      ChefSpec::SoloRunner.new do |node|
-        node.set['nginx']['sites'] = {}
-        node.set['apache']['sites']['project']['type'] = 'magento'
-        node.set['apache']['sites']['project']['docroot'] = '/var/www/project/current/public'
-        node.set['apache']['sites']['project']['magento']['cron_type'] = 'aoe_scheduler'
-        node.set['apache']['sites']['project']['magento']['aoe_scheduler']['watchdog']['enabled'] = false
-      end.converge(described_recipe)
-    end
-
-   it "creates project cron.d file using aoe schduler and no watchdog" do
-      expect(chef_run).not_to create_cron_d('magento-project')
-      expect(chef_run).to create_cron_d('magento-project-aoe-always').with(
-        command: 'sh /var/www/project/current/public/scheduler_cron.sh --mode always',
-        minute: '*',
-        user: 'www-data'
-      )
-      expect(chef_run).to create_cron_d('magento-project-aoe-default').with(
-        command: 'sh /var/www/project/current/public/scheduler_cron.sh --mode default',
-        minute: '*',
-        user: 'www-data'
-      )
+      expect(chef_run).to create_template('/etc/cron.d/magento-project')
     end
   end
 

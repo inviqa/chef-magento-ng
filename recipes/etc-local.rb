@@ -1,22 +1,22 @@
 %w( apache nginx ).each do |type|
-  node[type]['sites'].each_pair do |name, site|
+  node[type]['sites'].each_pair do |_name, site|
     next unless site['type'] == 'magento'
 
-    magento = ConfigDrivenHelper::Util::immutablemash_to_hash(node['magento'])
+    magento = ConfigDrivenHelper::Util.immutablemash_to_hash(node['magento'])
 
     if site['magento']
       magento = ::Chef::Mixin::DeepMerge.hash_only_merge(
         magento,
-        ConfigDrivenHelper::Util::immutablemash_to_hash(site['magento']))
+        ConfigDrivenHelper::Util.immutablemash_to_hash(site['magento']))
     end
 
     if Chef::Config[:solo]
-      missing_attrs = %w[
+      missing_attrs = %w(
         crypt_key
-      ].select { |attr| magento['app'][attr].nil? }.map { |attr| %Q{node['#{type}']['sites']['#{name}']['magento']['app']['#{attr}']} }
+      ).select { |attr| magento['app'][attr].nil? }.map { |attr| "node['#{type}']['sites']['#{name}']['magento']['app']['#{attr}']" }
 
       unless missing_attrs.empty?
-        raise "You must set #{missing_attrs.join(', ')} in chef-solo mode."
+        fail "You must set #{missing_attrs.join(', ')} in chef-solo mode."
       end
     else
       # generate all passwords
@@ -39,11 +39,11 @@
     end
 
     template "#{config_path}/app/etc/local.xml" do
-      source "magento-local.xml.erb"
+      source 'magento-local.xml.erb'
       mode 0644
-      variables({
+      variables(
         :magento => magento
-      })
+      )
     end
   end
 end

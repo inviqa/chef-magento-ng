@@ -7,11 +7,10 @@ describe 'magento-ng::cron' do
       end.converge(described_recipe)
     end
 
-    it "does not create cron.d file" do
+    it 'does not create cron.d file' do
       expect(chef_run).not_to create_cron_d('magento-project1')
       expect(chef_run).not_to create_cron_d('magento-project2')
     end
-
   end
 
   context 'with default attributes and one apache project site' do
@@ -23,7 +22,7 @@ describe 'magento-ng::cron' do
       end.converge(described_recipe)
     end
 
-    it "creates project cron.d file" do
+    it 'creates project cron.d file' do
       expect(chef_run).to create_cron_d('magento-project').with(
         command: 'sh /var/www/project/current/public/cron.sh',
         minute: '*',
@@ -32,7 +31,7 @@ describe 'magento-ng::cron' do
     end
   end
 
-   context 'with aoe schedule and watchdog' do
+  context 'with aoe schedule and watchdog' do
     let(:chef_run) do
       ChefSpec::SoloRunner.new do |node|
         node.set['nginx']['sites'] = {}
@@ -42,7 +41,7 @@ describe 'magento-ng::cron' do
       end.converge(described_recipe)
     end
 
-   it "creates project cron.d file using aoe schdule and watchdog" do
+    it 'creates project cron.d file using aoe schdule and watchdog' do
       expect(chef_run).not_to create_cron_d('magento-project')
       expect(chef_run).to create_template('/etc/cron.d/magento-project')
     end
@@ -57,7 +56,7 @@ describe 'magento-ng::cron' do
       end.converge(described_recipe)
     end
 
-    it "creates project cron.d file" do
+    it 'creates project cron.d file' do
       expect(chef_run).to create_cron_d('magento-project').with(
         command: 'sh /var/www/project/current/public/cron.sh',
         user: 'www-data'

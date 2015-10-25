@@ -13,3 +13,7 @@ group :test do
   gem 'foodcritic', '~> 4.0'
   gem 'rubocop', '~> 0.34.2'
 end
+
+group :deployment do
+  gem 'stove', '~> 3.2.7'
+end

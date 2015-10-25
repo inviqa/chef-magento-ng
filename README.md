@@ -1,4 +1,5 @@
-# magento-ng-cookbook
+magento-ng-cookbook
+===================
 
 A collection of recipes to prepare environments for hosting Magento applications.
 
@@ -6,7 +7,8 @@ A collection of recipes to prepare environments for hosting Magento applications
 
 TBC...
 
-## Recipes
+Recipes
+-------
 
 ### magento-ng::cron
 
@@ -252,12 +254,40 @@ Set up a complete Magento application server calling many of the other magento-n
   </tr>
 </table>
 
-## License and Authors
+Contributing
+------------
 
-Author:: Andy Thompson (athompson@inviqa.com)
+1. Fork the repository on Github
+2. Create a named feature branch (like `add_component_x`)
+3. Write you change
+4. Write tests for your change (if applicable)
+5. Run the tests, ensuring they all pass
+6. Submit a Pull Request using Github
 
-Copyright 2015, Inviqa
+Supermarket share
+-----------------
 
-Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at
+[stove](http://sethvargo.github.io/stove/) is used to create git tags and
+publish the cookbook on supermarket.chef.io.
 
-http://www.apache.org/licenses/LICENSE-2.0 Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.
+To tag/publish you need to be a contributor to the cookbook on Supermarket and
+run:
+
+```
+$ stove login --username <your username> --key ~/.chef/<your username>.pem
+$ rake publish
+```
+
+It will take the version defined in metadata.rb, create a tag, and push the
+cookbook to http://supermarket.chef.io/cookbooks/magento-ng
+
+
+License and Authors
+-------------------
+- Author:: Andy Thompson
+
+```text
+Copyright:: 2015 The Inviqa Group Ltd
+
+See LICENSE file
+```

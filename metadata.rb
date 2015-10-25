@@ -8,4 +8,5 @@ version          '0.3.1'
 
 depends 'config-driven-helper', '~> 1.4'
 depends 'cron', '~> 1.4'
+depends 'logrotate', '~> 1.9'
 depends 'php-fpm'

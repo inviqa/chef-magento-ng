@@ -1,14 +1,15 @@
 source 'https://rubygems.org'
 
+gem 'rake', '~> 10.1'
+gem 'berkshelf', '~> 4.0.1'
+
 group :integration do
-  gem 'berkshelf', '~> 3.2.3'
-  gem 'kitchen-vagrant', '~> 0.16.0'
-  gem 'test-kitchen', '~> 1.3.1'
+  gem 'kitchen-vagrant', '~> 0.19.0'
+  gem 'test-kitchen', '~> 1.4.2'
 end
 
 group :test do
-  gem 'chefspec', '~> 4.2.0'
+  gem 'chefspec', '~> 4.4.0'
   gem 'foodcritic', '~> 4.0'
-  gem 'rake', '~> 10.1'
-  gem 'rubocop', '~> 0.29.1'
+  gem 'rubocop', '~> 0.34.2'
 end

@@ -1,29 +1,29 @@
-default['magento']['db']['host'] = "localhost"
-default['magento']['db']['database'] = "magentodb"
-default['magento']['db']['username'] = "magentouser"
+default['magento']['db']['host'] = 'localhost'
+default['magento']['db']['database'] = 'magentodb'
+default['magento']['db']['username'] = 'magentouser'
 default['magento']['db']['persistent'] = '0'
 default['magento']['db']['active'] = '1'
-default['magento']['db']['model'] = "mysql4"
+default['magento']['db']['model'] = 'mysql4'
 default['magento']['db']['initStatements'] = 'SET NAMES utf8'
 default['magento']['db']['type'] = 'pdo_mysql'
 
 default['magento']['db_connections']['default_setup'] = {}
 
-default['magento']['app']['base_path'] = "public"
-default['magento']['app']['locale'] = "en_GB"
-default['magento']['app']['timezone'] = "Europe/London"
-default['magento']['app']['currency'] = "GBP"
-default['magento']['app']['session_save'] = "db" # files|db|memcache
-default['magento']['app']['admin_frontname'] = "admin"
-default['magento']['app']['use_rewrites'] = "yes"
-default['magento']['app']['use_secure'] = "yes"
-default['magento']['app']['use_secure_admin'] = "yes"
-default['magento']['app']['multi_session_save'] = "db" # files|db|memcache|redis
-default['magento']['app']['session_memcache_ip'] = "127.0.0.1"
-default['magento']['app']['session_memcache_port'] = "11211"
-default['magento']['app']['backend_cache'] = "file" # apc|memcached|xcache|file|Cm_Cache_Backend_Redis
-default['magento']['app']['slow_backend'] = "database" # database|file
-default['magento']['app']['backend_servers'] = Array.new
+default['magento']['app']['base_path'] = 'public'
+default['magento']['app']['locale'] = 'en_GB'
+default['magento']['app']['timezone'] = 'Europe/London'
+default['magento']['app']['currency'] = 'GBP'
+default['magento']['app']['session_save'] = 'db' # files|db|memcache
+default['magento']['app']['admin_frontname'] = 'admin'
+default['magento']['app']['use_rewrites'] = 'yes'
+default['magento']['app']['use_secure'] = 'yes'
+default['magento']['app']['use_secure_admin'] = 'yes'
+default['magento']['app']['multi_session_save'] = 'db' # files|db|memcache|redis
+default['magento']['app']['session_memcache_ip'] = '127.0.0.1'
+default['magento']['app']['session_memcache_port'] = '11211'
+default['magento']['app']['backend_cache'] = 'file' # apc|memcached|xcache|file|Cm_Cache_Backend_Redis
+default['magento']['app']['slow_backend'] = 'database' # database|file
+default['magento']['app']['backend_servers'] = []
 
 default['magento']['redis']['host'] = '127.0.0.1'
 default['magento']['redis']['port'] = '6379'
@@ -41,7 +41,7 @@ default['magento']['redis']['compression_lib'] = 'gzip'
 default['magento']['global']['custom'] = ''
 default['magento']['global']['extra_params'] = {
   'skip_process_modules_updates' => 1,
-  'skip_process_modules_updates_dev_mode' => 1,
+  'skip_process_modules_updates_dev_mode' => 1
 }
 
 default['magento']['cron_type'] = 'standard'
@@ -57,7 +57,7 @@ default['magento']['aoe_scheduler']['watchdog']['minute'] = '*/10'
   default[type]['shared_config']['magento'] = {
     'clustered' => false,
     'type' => 'magento',
-    'protocols' => ['http', 'https'],
+    'protocols' => %w( http https),
     'restricted_dirs' => [
       '/app/',
       '/downloader/',

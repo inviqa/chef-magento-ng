@@ -70,7 +70,18 @@ default['magento']['logrotate']['rotate'] = 4
       '/media/downloadable/',
       '/pkginfo/',
       '/report/config.xml',
-      '/var/'
+      '/var/',
+      '/.gitignore',
+      '/.htaccess',
+      '/.htaccess.sample',
+      '/composer.json',
+      '/cron.php',
+      '/cron.sh',
+      '/index.php.sample',
+      '/install.php',
+      '/mage',
+      '/php.ini.sample',
+      '/RELEASE_NOTES.txt'
     ],
     'static_dirs' => [
       '/media/',

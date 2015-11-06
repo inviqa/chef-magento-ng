@@ -53,6 +53,10 @@ default['magento']['aoe_scheduler']['default']['minute'] = '*'
 default['magento']['aoe_scheduler']['watchdog']['mode'] = 'watchdog'
 default['magento']['aoe_scheduler']['watchdog']['minute'] = '*/10'
 
+default['magento']['logrotate']['missingok'] = true
+default['magento']['logrotate']['frequency'] = 'weekly'
+default['magento']['logrotate']['rotate'] = 4
+
 %w( apache nginx ).each do |type|
   default[type]['shared_config']['magento'] = {
     'clustered' => false,

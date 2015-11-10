@@ -1,3 +1,13 @@
+## 0.4.0 (10 November 2015)
+
+FEATURES
+
+  * Add a logrotate recipe to the stack for magento logs
+
+BUG FIXES
+
+  * Restrict access to sensitive files in root using new locations syntax
+
 ## 0.3.1 (02 October 2015)
 
 FEATURES

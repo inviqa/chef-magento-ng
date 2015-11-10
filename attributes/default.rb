@@ -74,8 +74,6 @@ default['magento']['logrotate']['rotate'] = 4
       '/skin' => 'static',
       '/var' => 'restricted',
       '/.gitignore' => 'restricted',
-      '/.htaccess' => 'restricted',
-      '/.htaccess.sample' => 'restricted',
       '/composer.json' => 'restricted',
       '/cron.php' => 'restricted',
       '/cron.sh' => 'restricted',
@@ -83,7 +81,12 @@ default['magento']['logrotate']['rotate'] = 4
       '/install.php' => 'restricted',
       '/mage' => 'restricted',
       '/php.ini.sample' => 'restricted',
-      '/RELEASE_NOTES.txt' => 'restricted'
+      '/RELEASE_NOTES.txt' => 'restricted',
+
+      '/\\.ht[^/]*$' => {
+        'type' => 'regex',
+        'mode' => 'restricted'
+      }
     },
     'capistrano' => {
       'owner' => 'deploy',

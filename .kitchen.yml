@@ -58,6 +58,8 @@ suites:
                 crypt_key: "foo"
   - name: stack
     run_list:
+      - recipe[nginx]
+      - recipe[config-driven-helper::nginx-sites]
       - recipe[magento-ng::stack]
     attributes:
       nginx:
@@ -65,7 +67,8 @@ suites:
           site1:
             server_name: "test.dev"
             docroot: "/docroot"
-            type: "magento"
+            inherits: "magento"
+            protocols: ['http']
             magento:
               app:
                 crypt_key: "foo"

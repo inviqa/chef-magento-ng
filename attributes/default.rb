@@ -62,20 +62,32 @@ default['magento']['logrotate']['rotate'] = 4
     'clustered' => false,
     'type' => 'magento',
     'protocols' => %w( http https),
-    'restricted_dirs' => [
-      '/app/',
-      '/downloader/',
-      '/includes/',
-      '/lib/',
-      '/media/downloadable/',
-      '/pkginfo/',
-      '/report/config.xml',
-      '/var/'
-    ],
-    'static_dirs' => [
-      '/media/',
-      '/skin/'
-    ],
+    'locations' => {
+      '/app' => 'restricted',
+      '/downloader' => 'restricted',
+      '/includes' => 'restricted',
+      '/lib' => 'restricted',
+      '/media' => 'static',
+      '/media/downloadable' => 'restricted',
+      '/pkginfo' => 'restricted',
+      '/report/config.xml' => 'restricted',
+      '/skin' => 'static',
+      '/var' => 'restricted',
+      '/.gitignore' => 'restricted',
+      '/composer.json' => 'restricted',
+      '/cron.php' => 'restricted',
+      '/cron.sh' => 'restricted',
+      '/index.php.sample' => 'restricted',
+      '/install.php' => 'restricted',
+      '/mage' => 'restricted',
+      '/php.ini.sample' => 'restricted',
+      '/RELEASE_NOTES.txt' => 'restricted',
+
+      '/\\.ht[^/]*$' => {
+        'type' => 'regex',
+        'mode' => 'restricted'
+      }
+    },
     'capistrano' => {
       'owner' => 'deploy',
       'group' => 'deploy',

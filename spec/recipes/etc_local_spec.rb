@@ -148,8 +148,8 @@ describe 'magento-ng::etc-local' do
     end
 
     let(:error_message) do
-      "You must set node['nginx']['sites']['project']['magento']['app']['crypt_key']"\
-      " in chef-solo mode."
+      'You must set node[\'nginx\'][\'sites\'][\'project\'][\'magento\'][\'app\'][\'crypt_key\']'\
+      ' in chef-solo mode.'
     end
 
     it 'should complain about the lack of crypt key when in chef solo mode' do

@@ -1,3 +1,9 @@
+## 0.4.1 (28 January 2016)
+
+IMPROVEMENTS
+
+  * Add additional new and existing restrictions from .htaccess
+
 ## 0.4.0 (10 November 2015)
 
 FEATURES

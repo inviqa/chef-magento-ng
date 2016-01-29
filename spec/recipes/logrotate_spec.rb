@@ -8,8 +8,8 @@ describe 'magento-ng::logrotate' do
     end
 
     it 'does not create logrotate configuration' do
-      expect(chef_run).not_to create_template('/etc/logrotate.d/magento-project1')
-      expect(chef_run).not_to create_template('/etc/logrotate.d/magento-project2')
+      expect(chef_run).not_to enable_logrotate_app('magento-project1')
+      expect(chef_run).not_to enable_logrotate_app('magento-project2')
     end
   end
 
@@ -23,7 +23,8 @@ describe 'magento-ng::logrotate' do
     end
 
     it 'creates project logrotate configuration' do
-      expect(chef_run).to create_template('/etc/logrotate.d/magento-project')
+      expect(chef_run).to enable_logrotate_app('magento-project')
+        .with(path: '/var/www/project/current/public/var/log/*.log', missingok: nil, frequency: 'weekly', rotate: 4)
     end
   end
 
@@ -37,7 +38,39 @@ describe 'magento-ng::logrotate' do
     end
 
     it 'creates project logrotate configuration' do
-      expect(chef_run).to create_template('/etc/logrotate.d/magento-project')
+      expect(chef_run).to enable_logrotate_app('magento-project')
+        .with(path: '/var/www/project/current/public/var/log/*.log', missingok: nil, frequency: 'weekly', rotate: 4)
+    end
+  end
+
+  context 'with capistrano' do
+    cached(:chef_run) do
+      ChefSpec::SoloRunner.new do |node|
+        node.set['nginx']['sites']['project']['type'] = 'magento'
+        node.set['nginx']['sites']['project']['docroot'] = '/var/www/project/current/public'
+        node.set['nginx']['sites']['project']['capistrano']['deploy_to'] = '/var/www/project'
+      end.converge(described_recipe)
+    end
+
+    it 'creates project logrotate configuration' do
+      expect(chef_run).to enable_logrotate_app('magento-project')
+        .with(path: '/var/www/project/shared/public/var/log/*.log', missingok: nil, frequency: 'weekly', rotate: 4)
+    end
+  end
+
+  context 'with extra logrotate params' do
+    cached(:chef_run) do
+      ChefSpec::SoloRunner.new do |node|
+        node.set['nginx']['sites']['project']['type'] = 'magento'
+        node.set['nginx']['sites']['project']['docroot'] = '/var/www/project/current/public'
+        node.set['nginx']['sites']['project']['logrotate']['missingok'] = false
+        node.set['nginx']['sites']['project']['logrotate']['delaycompress'] = true
+      end.converge(described_recipe)
+    end
+
+    it 'creates project logrotate configuration' do
+      expect(chef_run).to enable_logrotate_app('magento-project')
+        .with(path: '/var/www/project/shared/public/var/log/*.log', delaycompress: nil, frequency: 'weekly', rotate: 4)
     end
   end
 end

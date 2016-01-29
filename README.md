@@ -268,13 +268,13 @@ Testing
 -------
 
 We use the following testing tools on this project, which can be installed by running `bundle install`.
-These will all run when you perform `bundle exec rake`, however if you wish to know how to run them individually,
+These will all run when you perform `bundle exec rake test`, however if you wish to know how to run them individually,
 they are listed below.
 
-  RSpec/ChefSpec for spec style TDD: `bundle exec rspec`
-  Test Kitchen for TDD and testing out individual recipes on a test Virtual Machine: `bundle exec kitchen test`
-  Foodcritic to catch Chef specific style/correctness errors: `bundle exec foodcritic . -f any -C`
-  Rubocop to catch Ruby style "offenses": `bundle exec rubocop`
+    RSpec/ChefSpec for spec style TDD: `bundle exec rspec`
+    Test Kitchen for TDD and testing out individual recipes on a test Virtual Machine: `bundle exec kitchen test`
+    Foodcritic to catch Chef specific style/correctness errors: `bundle exec foodcritic . -f any -C`
+    Rubocop to catch Ruby style "offenses": `bundle exec rubocop`
 
 Test-Kitchen via vagrant can be quite slow at starting VMs. To help with this, there is the opportunity to use
 test-kitchen's docker plugin and save up to a minute per VM.
@@ -284,11 +284,12 @@ To use kitchen-docker, we need to do a bit of extra setup:
 2. Let test-kitchen know about the `.kitchen.docker.yml` file with the following in your `.bashrc` or other shell
    configuration: `export KITCHEN_LOCAL_YAML=.kitchen.docker.yml`
 3. To re-use the same public/private key each time you run the test suite, you should generate a passwordless SSH key:
-
-  ssh-keygen -t rsa -b 2048 -f .kitchen/docker_id_rsa
-  # and until https://github.com/portertech/kitchen-docker/commit/22cd89828659d9c5f3dd3b9e9cdaaa965a5dd3d4 is released
-  cat .kitchen/docker_id_rsa.pub | tr -d '\n' | tee .kitchen/docker_id_rsa.pub
-  chmod 400 .kitchen/docker_id_rsa*
+```
+ssh-keygen -t rsa -b 2048 -f .kitchen/docker_id_rsa
+# and until https://github.com/portertech/kitchen-docker/commit/22cd89828659d9c5f3dd3b9e9cdaaa965a5dd3d4 is released
+cat .kitchen/docker_id_rsa.pub | tr -d '\n' | tee .kitchen/docker_id_rsa.pub
+chmod 400 .kitchen/docker_id_rsa*
+```
 
 Supermarket share
 -----------------

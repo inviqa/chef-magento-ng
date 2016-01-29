@@ -287,7 +287,7 @@ License and Authors
 - Author:: Andy Thompson
 
 ```text
-Copyright:: 2015 The Inviqa Group Ltd
+Copyright:: 2015 Inviqa UK LTD
 
 See LICENSE file
 ```

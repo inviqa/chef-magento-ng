@@ -9,9 +9,15 @@ provisioner:
   chef_omnibus_install_options: -d /tmp/vagrant-cache/vagrant_omnibus
 
 platforms:
-  - name: centos-5.11
-  - name: centos-6.6
-  - name: centos-7.0
+<% %w(5.11 6.6 7.0).each do |version| %>
+  - name: centos-<%= version %>
+    run_list:
+      - recipe[yum]
+    attributes:
+      yum:
+        main:
+          keepcache: true
+<% end %>
 
 suites:
   - name: cron

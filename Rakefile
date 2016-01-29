@@ -13,6 +13,7 @@ namespace :style do
   desc 'Run Chef style checks'
   FoodCritic::Rake::LintTask.new(:chef) do |t|
     t.options = {
+      context: true,
       fail_tags: ['any'],
       exclude_paths: ['spec/', 'test/']
     }
@@ -28,12 +29,18 @@ RSpec::Core::RakeTask.new(:spec)
 
 # Integration tests. Kitchen.ci
 namespace :integration do
-  desc 'Run Test Kitchen with Vagrant'
-  task :vagrant do
+  desc 'Run Test Kitchen with Vagrant/Docker'
+  task :kitchen do
     require 'kitchen'
 
     Kitchen.logger = Kitchen.default_file_logger
-    Kitchen::Config.new.instances.each do |instance|
+    loader = Kitchen::Loader::YAML.new(
+      project_config: ENV['KITCHEN_YAML'],
+      local_config: ENV['KITCHEN_LOCAL_YAML'],
+      global_config: ENV['KITCHEN_GLOBAL_YAML']
+    )
+    config = Kitchen::Config.new(loader: loader)
+    config.instances.each do |instance|
       instance.test(:always)
     end
   end
@@ -41,4 +48,4 @@ end
 
 task :travis => %w( style spec )
 
-task :test => %w( style spec integration:vagrant )
+task :test => %w( style spec integration:kitchen )

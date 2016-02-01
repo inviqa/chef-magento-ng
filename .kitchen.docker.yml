@@ -10,7 +10,7 @@ driver_config:
   public_key: .kitchen/docker_id_rsa.pub
 
 platforms:
-<% %w(5.11 6.6 7.0).each do |centos_version| %>
+<% %w(5.11 6.7 7.2).each do |centos_version| %>
   - name: centos-<%= centos_version %>
     driver_config:
       provision_command:

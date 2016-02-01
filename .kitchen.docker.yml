@@ -21,9 +21,9 @@ platforms:
         - chown -R kitchen:kitchen /tmp/verifier
       volume:
       <% if File.exist?("~/.vagrant.d/cache/opscode-centos-#{centos_version}") %>
-        - ~/.vagrant.d/cache/opscode-centos-<%= centos_version %>/chef:/var/chef/cache
-        - ~/.vagrant.d/cache/opscode-centos-<%= centos_version %>/vagrant_omnibus:/tmp/vagrant-cache/vagrant_omnibus/
-        - ~/.vagrant.d/cache/opscode-centos-<%= centos_version %>/yum:/var/cache/yum
+        - ~/.vagrant.d/cache/bento/centos-<%= centos_version %>/chef:/var/chef/cache
+        - ~/.vagrant.d/cache/bento/centos-<%= centos_version %>/vagrant_omnibus:/tmp/vagrant-cache/vagrant_omnibus/
+        - ~/.vagrant.d/cache/bento/centos-<%= centos_version %>/yum:/var/cache/yum
       <% end %>
     <% if centos_version.to_f >= 7.0 %>
       run_command: /usr/lib/systemd/systemd

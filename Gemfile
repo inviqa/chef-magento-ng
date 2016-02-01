@@ -6,6 +6,7 @@ gem 'berkshelf', '~> 4.0.1'
 group :integration do
   gem 'kitchen-vagrant', '~> 0.19.0'
   gem 'test-kitchen', '~> 1.4.2'
+  gem 'kitchen-docker', '~> 2.3.0'
 end
 
 group :test do

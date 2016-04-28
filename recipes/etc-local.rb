@@ -18,7 +18,7 @@
 #
 
 %w( apache nginx ).each do |type|
-  node[type]['sites'].each_pair do |_name, site|
+  node[type]['sites'].each_pair do |name, site|
     next unless site['type'] == 'magento'
 
     magento = ConfigDrivenHelper::Util.immutablemash_to_hash(node['magento'])
@@ -35,7 +35,7 @@
       ).select { |attr| magento['app'][attr].nil? }.map { |attr| "node['#{type}']['sites']['#{name}']['magento']['app']['#{attr}']" }
 
       unless missing_attrs.empty?
-        fail "You must set #{missing_attrs.join(', ')} in chef-solo mode."
+        raise "You must set #{missing_attrs.join(', ')} in chef-solo mode."
       end
     else
       # generate all passwords
@@ -43,11 +43,11 @@
       node.save
     end
 
-    if site['capistrano']
-      config_path = "#{site['capistrano']['deploy_to']}/shared/#{magento['app']['base_path']}"
-    else
-      config_path = site['docroot']
-    end
+    config_path = if site['capistrano']
+                    "#{site['capistrano']['deploy_to']}/shared/#{magento['app']['base_path']}"
+                  else
+                    site['docroot']
+                  end
 
     directory "#{config_path}/app/etc" do
       recursive true

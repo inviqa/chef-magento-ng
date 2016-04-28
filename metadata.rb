@@ -9,6 +9,6 @@ source_url       'https://github.com/inviqa/chef-magento-ng'
 issues_url       'https://github.com/inviqa/chef-magento-ng/issues'
 
 depends 'config-driven-helper', '~> 1.5'
-depends 'cron', '~> 1.4'
+depends 'cron', '~> 1.7'
 depends 'logrotate', '~> 1.9'
 depends 'php-fpm'

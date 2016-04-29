@@ -18,7 +18,7 @@
 #
 
 %w( apache nginx ).each do |type|
-  node[type]['sites'].each_pair do |_name, site|
+  node[type]['sites'].each_pair do |name, site|
     next unless site['type'] == 'magento'
 
     magento = ConfigDrivenHelper::Util.immutablemash_to_hash(node['magento'])

@@ -1,3 +1,14 @@
+## 0.4.2 (03 May 2016)
+
+CHANGES:
+
+  * #25 Abbreviate copyright Limited to LTD for consistency
+  * #28 Update code style and spec dependencies
+
+BUG FIXES:
+
+  * #29 Fix an incorrectly named block parameter in etc-local
+
 ## 0.4.1 (28 January 2016)
 
 IMPROVEMENTS

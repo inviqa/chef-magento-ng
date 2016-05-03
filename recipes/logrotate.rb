@@ -29,11 +29,11 @@
         ConfigDrivenHelper::Util.immutablemash_to_hash(site['magento']))
     end
 
-    if site['capistrano']
-      config_path = "#{site['capistrano']['deploy_to']}/shared/#{magento['app']['base_path']}"
-    else
-      config_path = site['docroot']
-    end
+    config_path = if site['capistrano']
+                    "#{site['capistrano']['deploy_to']}/shared/#{magento['app']['base_path']}"
+                  else
+                    site['docroot']
+                  end
 
     logrotate_app "magento-#{name}" do
       path "#{config_path}/var/log/*.log"

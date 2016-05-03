@@ -36,7 +36,7 @@
         ConfigDrivenHelper::Util.immutablemash_to_hash(site['magento']))
     end
 
-    cron_user = if (!site['cron'].nil?) && site['cron']['user']
+    cron_user = if !site['cron'].nil? && site['cron']['user']
                   site['cron']['user']
                 else
                   case type

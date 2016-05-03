@@ -14,5 +14,5 @@ Style/HashSyntax:
     - spec/**/*
     - Rakefile
 
-Style/SingleSpaceBeforeFirstArg:
+Style/SpaceBeforeFirstArg:
   Enabled: false

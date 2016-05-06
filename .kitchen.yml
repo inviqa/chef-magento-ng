@@ -1,3 +1,4 @@
+---
 driver:
   name: vagrant
   vagrantfiles:
@@ -9,9 +10,11 @@ provisioner:
   chef_omnibus_install_options: -d /tmp/vagrant-cache/vagrant_omnibus
 
 platforms:
-  - name: centos-5.11
-  - name: centos-6.6
-  - name: centos-7.0
+  <% [6,7].each do |centos_version| %>
+  - name: centos-<%=centos_version%>
+    driver:
+      box: inviqa/centos-<%=centos_version%>-minimal
+  <% end %>
 
 suites:
   - name: cron
@@ -66,9 +69,11 @@ suites:
         sites:
           site1:
             server_name: "test.dev"
-            docroot: "/docroot"
+            docroot: "/var/www/app/current/public"
             inherits: "magento"
             protocols: ['http']
+            capistrano:
+              deploy_to: "/var/www/app"
             magento:
               app:
                 crypt_key: "foo"

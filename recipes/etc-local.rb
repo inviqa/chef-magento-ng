@@ -26,7 +26,8 @@
     if site['magento']
       magento = ::Chef::Mixin::DeepMerge.hash_only_merge(
         magento,
-        ConfigDrivenHelper::Util.immutablemash_to_hash(site['magento']))
+        ConfigDrivenHelper::Util.immutablemash_to_hash(site['magento'])
+      )
     end
 
     if Chef::Config[:solo]

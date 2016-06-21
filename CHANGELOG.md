@@ -1,3 +1,7 @@
+## 0.6.0 (21 June 2016)
+
+  * Update config-driven-helper to allow for version >= 1.5, < 4.0
+
 ## 0.5.0 (06 May 2016)
 
   * #31 Update config-driven-helper to allow for version >= 1.5, < 3.0

@@ -1,4 +1,4 @@
-## 0.5.1 (05 August 2016)
+## 0.5.1 (14 September 2016)
 
 BUG FIXES:
 

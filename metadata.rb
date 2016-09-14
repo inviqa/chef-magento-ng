@@ -4,7 +4,7 @@ maintainer_email 'athompson@inviqa.com'
 license          'All rights reserved'
 description      'Installs/Configures magento-ng'
 long_description 'Installs/Configures magento-ng'
-version          '0.5.0'
+version          '0.5.1'
 source_url       'https://github.com/inviqa/chef-magento-ng'
 issues_url       'https://github.com/inviqa/chef-magento-ng/issues'
 

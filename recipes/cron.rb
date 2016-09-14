@@ -17,7 +17,7 @@
 # limitations under the License.
 #
 
-%w( apache nginx ).each do |type|
+%w(apache nginx).each do |type|
   node[type]['sites'].each do |name, site|
     next unless site['type'] == 'magento'
 
@@ -33,7 +33,8 @@
     if site['magento']
       magento = ::Chef::Mixin::DeepMerge.hash_only_merge(
         magento,
-        ConfigDrivenHelper::Util.immutablemash_to_hash(site['magento']))
+        ConfigDrivenHelper::Util.immutablemash_to_hash(site['magento'])
+      )
     end
 
     cron_user = if !site['cron'].nil? && site['cron']['user']

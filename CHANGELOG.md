@@ -1,4 +1,12 @@
+## 0.5.1 (14 September 2016)
+
+BUG FIXES:
+
+  * #34 Remove ignored logrotate missingok option 
+
 ## 0.5.0 (06 May 2016)
+
+CHANGES:
 
   * #31 Update config-driven-helper to allow for version >= 1.5, < 3.0
 

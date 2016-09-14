@@ -63,7 +63,7 @@ describe 'magento-ng::logrotate' do
       ChefSpec::SoloRunner.new do |node|
         node.set['nginx']['sites']['project']['type'] = 'magento'
         node.set['nginx']['sites']['project']['docroot'] = '/var/www/project/current/public'
-        node.set['nginx']['sites']['project']['logrotate']['missingok'] = false
+        node.set['nginx']['sites']['project']['capistrano']['deploy_to'] = '/var/www/project'
         node.set['nginx']['sites']['project']['logrotate']['delaycompress'] = true
       end.converge(described_recipe)
     end

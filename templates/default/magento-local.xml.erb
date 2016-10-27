@@ -45,10 +45,23 @@
         <redis_session>
             <host><![CDATA[<%= @magento['redis']['host'] %>]]></host>
              <port><![CDATA[<%= @magento['redis']['port'] %>]]></port>
+             <password><![CDATA[<%= @magento['redis']['password'] %>]]></password><!-- Specify if your Redis server requires authentication -->
              <timeout><![CDATA[<%= @magento['redis']['timeout'] %>]]></timeout>
+             <persistent><![CDATA[<%= @magento['redis']['session_persistent'] %>]]></persistent> <!-- Specify unique string to enable persistent connections. E.g.: sess-db0; bugs with phpredis and php-fpm are known: https://github.com/nicolasff/phpredis/issues/70 -->
              <db><![CDATA[<%= @magento['redis']['session_database'] %>]]></db>
              <compression_threshold><![CDATA[<%= @magento['redis']['compress_threshold'] %>]]></compression_threshold><!-- Set to 0 to disable compression -->
              <compression_lib><![CDATA[<%= @magento['redis']['compression_lib'] %>]]></compression_lib><!-- gzip, lzf or snappy -->
+             <log_level><![CDATA[<%= @magento['redis']['log_level'] %>]]></log_level><!-- 0 (emergency: system is unusable), 4 (warning; additional information, recommended), 5 (notice: normal but significant condition), 6 (info: informational messages), 7 (debug: the most information for development/testing) -->
+             <max_concurrency><![CDATA[<%= @magento['redis']['max_concurrency'] %>]]></max_concurrency><!-- maximum number of processes that can wait for a lock on one session; for large production clusters, set this to at least 10% of the number of PHP processes -->
+             <break_after_frontend><![CDATA[<%= @magento['redis']['break_after_frontend'] %>]]></break_after_frontend><!-- seconds to wait for a session lock in the frontend; not as critical as admin -->
+             <fail_after><![CDATA[<%= @magento['redis']['fail_after'] %>]]></fail_after><!-- seconds after which we bail from attempting to obtain lock (in addition to break after time) -->
+             <break_after_adminhtml><![CDATA[<%= @magento['redis']['break_after_adminhtml'] %>]]></break_after_adminhtml>
+             <first_lifetime><![CDATA[<%= @magento['redis']['first_lifetime'] %>]]></first_lifetime><!-- Lifetime of session for non-bots on the first write. 0 to disable -->
+             <bot_first_lifetime><![CDATA[<%= @magento['redis']['bot_first_lifetime'] %>]]></bot_first_lifetime><!-- Lifetime of session for bots on the first write. 0 to disable -->
+             <bot_lifetime><![CDATA[<%= @magento['redis']['bot_lifetime'] %>]]></bot_lifetime><!-- Lifetime of session for bots on subsequent writes. 0 to disable -->
+             <disable_locking><![CDATA[<%= @magento['redis']['disable_locking'] %>]]></disable_locking><!-- Disable session locking entirely. -->
+             <min_lifetime><![CDATA[<%= @magento['redis']['min_lifetime'] %>]]></min_lifetime><!-- Set the minimum session lifetime -->
+             <max_lifetime><![CDATA[<%= @magento['redis']['max_lifetime'] %>]]></max_lifetime><!-- Set the maximum session lifetime -->
         </redis_session>
         <% else %>
         <session_save><![CDATA[<%= @magento['app']['multi_session_save'] %>]]></session_save>
@@ -63,13 +76,16 @@
                 <backend_options>
                     <server><![CDATA[<%= @magento['redis']['host'] %>]]></server> <!-- or absolute path to unix socket for better performance -->
                      <port><![CDATA[<%= @magento['redis']['port'] %>]]></port>
+                     <persistent><![CDATA[<%= @magento['redis']['persistent'] %>]]></persistent><!-- Specify unique string to enable persistent connections. E.g.: sess-db0; bugs with phpredis and php-fpm are known: https://github.com/nicolasff/phpredis/issues/70 -->
                      <database><![CDATA[<%= @magento['redis']['database'] %>]]></database>
                      <force_standalone><![CDATA[<%= @magento['redis']['force_standalone'] %>]]></force_standalone><!-- 0 for phpredis, 1 for standalone PHP -->
+                     <connect_retries><![CDATA[<%= @magento['redis']['connect_retries'] %>]]></connect_retries><!-- Reduces errors due to random connection failures; a value of 1 will not retry after the first failure -->
                      <automatic_cleaning_factor><![CDATA[<%= @magento['redis']['automatic_cleaning_factor'] %>]]></automatic_cleaning_factor> <!-- Disabled by default -->
                      <compress_data><![CDATA[<%= @magento['redis']['compress_data'] %>]]></compress_data><!-- 0-9 for compression level, recommended: 0 or 1 -->
                      <compress_tags><![CDATA[<%= @magento['redis']['compress_tags'] %>]]></compress_tags><!-- 0-9 for compression level, recommended: 0 or 1 -->
                      <compress_threshold><![CDATA[<%= @magento['redis']['compress_threshold'] %>]]></compress_threshold><!-- Strings below this size will not be compressed -->
                      <compression_lib><![CDATA[<%= @magento['redis']['compression_lib'] %>]]></compression_lib> <!-- Supports gzip, lzf and snappy -->
+                     <use_lua><![CDATA[<%= @magento['redis']['use_lua'] %>]]></use_lua><!-- Set to 1 if Lua scripts should be used for some operations -->
                 </backend_options>
              <% else %>
              <slow_backend><![CDATA[<%= @magento['app']['slow_backend'] %>]]></slow_backend> <!-- database / file (default) - used for 2 levels cache setup, necessary for all shared memory storages -->
@@ -115,6 +131,8 @@
                      <compress_tags><![CDATA[<%= @magento['redis']['compress_tags'] %>]]></compress_tags><!-- 0-9 for compression level, recommended: 0 or 1 -->
                      <compress_threshold><![CDATA[<%= @magento['redis']['compress_threshold'] %>]]></compress_threshold><!-- Strings below this size will not be compressed -->
                      <compression_lib><![CDATA[<%= @magento['redis']['compression_lib'] %>]]></compression_lib> <!-- Supports gzip, lzf and snappy -->
+                     <lifetimelimit><![CDATA[<%= @magento['redis']['lifetime_limit'] %>]]></lifetimelimit><!-- Lifetime for cache record -->
+                     <persistent><![CDATA[<%= @magento['redis']['full_page_cache_persistent'] %>]]></persistent><!-- Specify unique string to enable persistent connections. E.g.: sess-db0; bugs with phpredis and php-fpm are known: https://github.com/nicolasff/phpredis/issues/70 -->
                  </backend_options>
              <% else %>
                  <slow_backend><![CDATA[<%= @magento['app']['slow_backend'] %>]]></slow_backend> <!-- database / file (default) - used for 2 levels cache setup, necessary for all shared memory storages -->

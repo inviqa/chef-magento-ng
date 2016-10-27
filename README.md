@@ -181,6 +181,12 @@ Set up a complete Magento application server calling many of the other magento-n
     <td>Redis instance port</td>
     <td><tt>6379</tt></td>
   </tr>
+    <tr>
+      <td><tt>['magento']['redis']['password']</tt></td>
+      <td>String</td>
+      <td>Redis instance password</td>
+      <td><tt></tt></td>
+    </tr>
   <tr>
     <td><tt>['magento']['redis']['timeout']</tt></td>
     <td>String</td>
@@ -206,10 +212,34 @@ Set up a complete Magento application server calling many of the other magento-n
     <td><tt>2</tt></td>
   </tr>
   <tr>
+    <td><tt>['magento']['redis']['persistent']</tt></td>
+    <td>String</td>
+    <td>Unique string for persistent connections</td>
+    <td><tt>c</tt></td>
+  </tr>
+  <tr>
+    <td><tt>['magento']['redis']['full_page_cache_persistent']</tt></td>
+    <td>String</td>
+    <td>Unique string for persistent full page cache connections</td>
+    <td><tt>fpc</tt></td>
+  </tr>
+  <tr>
+    <td><tt>['magento']['redis']['session_persistent']</tt></td>
+    <td>String</td>
+    <td>Unique string for persistent session connections</td>
+    <td><tt>s</tt></td>
+  </tr>
+  <tr>
     <td><tt>['magento']['redis']['force_standalone']</tt></td>
     <td>String</td>
     <td>Enforce standalone PHP redis, 0 for phpredis</td>
     <td><tt>0</tt></td>
+  </tr>
+  <tr>
+    <td><tt>['magento']['redis']['connect_retries']</tt></td>
+    <td>String</td>
+    <td>Reduces errors due to random connection failures</td>
+    <td><tt>1</tt></td>
   </tr>
   <tr>
     <td><tt>['magento']['redis']['automatic_cleaning_factor']</tt></td>
@@ -240,6 +270,84 @@ Set up a complete Magento application server calling many of the other magento-n
     <td>String</td>
     <td>Compression library (gzip|lzf|l4z|snappy)</td>
     <td><tt>gzip</tt></td>
+  </tr>
+  <tr>
+    <td><tt>['magento']['redis']['lifetime_limit']</tt></td>
+    <td>String</td>
+    <td>Lifetime for cache record</td>
+    <td><tt>57600</tt></td>
+  </tr>
+  <tr>
+    <td><tt>['magento']['redis']['log_level']</tt></td>
+    <td>String</td>
+    <td>Logging level</td>
+    <td><tt>4</tt></td>
+  </tr>
+  <tr>
+    <td><tt>['magento']['redis']['max_concurrency']</tt></td>
+    <td>String</td>
+    <td>Maximum number of processes that can wait for a lock</td>
+    <td><tt>6</tt></td>
+  </tr>
+  <tr>
+    <td><tt>['magento']['redis']['break_after_frontend']</tt></td>
+    <td>String</td>
+    <td>Seconds to wait for a session lock</td>
+    <td><tt>5</tt></td>
+  </tr>
+  <tr>
+    <td><tt>['magento']['redis']['fail_after']</tt></td>
+    <td>String</td>
+    <td>Seconds to wait before bailing (in addition to break after time)</td>
+    <td><tt>10</tt></td>
+  </tr>
+  <tr>
+    <td><tt>['magento']['redis']['break_after_adminhtml']</tt></td>
+    <td>String</td>
+    <td>Seconds to wait for a session lock in admin</td>
+    <td><tt>30</tt></td>
+  </tr>
+  <tr>
+    <td><tt>['magento']['redis']['first_lifetime']</tt></td>
+    <td>String</td>
+    <td>Lifetime of session for non-bots</td>
+    <td><tt>600</tt></td>
+  </tr>
+  <tr>
+    <td><tt>['magento']['redis']['bot_first_lifetime']</tt></td>
+    <td>String</td>
+    <td>Lifetime of session for bots on first write</td>
+    <td><tt>60</tt></td>
+  </tr>
+  <tr>
+    <td><tt>['magento']['redis']['bot_lifetime']</tt></td>
+    <td>String</td>
+    <td>Lifetime of session for bots on subsequent writes</td>
+    <td><tt>7200</tt></td>
+  </tr>
+  <tr>
+    <td><tt>['magento']['redis']['disable_locking']</tt></td>
+    <td>String</td>
+    <td>Disable session locking entirely</td>
+    <td><tt>0</tt></td>
+  </tr>
+  <tr>
+    <td><tt>['magento']['redis']['min_lifetime']</tt></td>
+    <td>String</td>
+    <td>Minimum session lifetime</td>
+    <td><tt>60</tt></td>
+  </tr>
+  <tr>
+    <td><tt>['magento']['redis']['max_lifetime']</tt></td>
+    <td>String</td>
+    <td>Maximim session lifetime</td>
+    <td><tt>2592000</tt></td>
+  </tr>
+  <tr>
+    <td><tt>['magento']['redis']['use_lua']</tt></td>
+    <td>String</td>
+    <td>Enable Lua for some operations</td>
+    <td><tt>0</tt></td>
   </tr>
   <tr>
     <td><tt>['magento']['global']['extra_params']</tt></td>

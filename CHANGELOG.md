@@ -1,3 +1,9 @@
+## 1.0.0 (27 October 2016)
+
+CHANGES:
+
+  * #32 Add additional redis related settings, with sensible defaults.
+
 ## 0.5.1 (14 September 2016)
 
 BUG FIXES:

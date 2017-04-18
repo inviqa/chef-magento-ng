@@ -77,3 +77,4 @@ suites:
             magento:
               app:
                 crypt_key: "foo"
+            capistrano: false

@@ -74,11 +74,11 @@ default['magento']['aoe_scheduler']['watchdog']['minute'] = '*/10'
 default['magento']['logrotate']['frequency'] = 'weekly'
 default['magento']['logrotate']['rotate'] = 4
 
-%w(apache nginx).each do |type|
+%w[apache nginx].each do |type|
   default[type]['shared_config']['magento'] = {
     'clustered' => false,
     'type' => 'magento',
-    'protocols' => %w(http https),
+    'protocols' => %w[http https],
     'locations' => {
       '/app' => 'restricted',
       '/dev' => 'restricted',

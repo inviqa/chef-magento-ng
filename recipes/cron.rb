@@ -17,7 +17,7 @@
 # limitations under the License.
 #
 
-%w(apache nginx).each do |type|
+%w[apache nginx].each do |type|
   node[type]['sites'].each do |name, site|
     next unless site['type'] == 'magento'
 

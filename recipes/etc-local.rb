@@ -17,7 +17,7 @@
 # limitations under the License.
 #
 
-%w(apache nginx).each do |type|
+%w[apache nginx].each do |type|
   node[type]['sites'].each_pair do |name, site|
     next unless site['type'] == 'magento'
 
@@ -31,9 +31,9 @@
     end
 
     if Chef::Config[:solo]
-      missing_attrs = %w(
+      missing_attrs = %w[
         crypt_key
-      ).select { |attr| magento['app'][attr].nil? }.map { |attr| "node['#{type}']['sites']['#{name}']['magento']['app']['#{attr}']" }
+      ].select { |attr| magento['app'][attr].nil? }.map { |attr| "node['#{type}']['sites']['#{name}']['magento']['app']['#{attr}']" }
 
       unless missing_attrs.empty?
         raise "You must set #{missing_attrs.join(', ')} in chef-solo mode."

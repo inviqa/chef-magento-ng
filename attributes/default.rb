@@ -95,6 +95,7 @@ default['magento']['logrotate']['rotate'] = 4
       '/media/downloadable' => 'restricted',
       '/pkginfo' => 'restricted',
       '/report/config.xml' => 'restricted',
+      '^/rss/(catalog/(notifystock|review)|order/new)(/|$)' => 'restricted',
       '/shell' => 'restricted',
       '/skin' => 'static',
       '/var' => 'restricted',

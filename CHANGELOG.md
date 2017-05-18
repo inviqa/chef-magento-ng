@@ -1,3 +1,9 @@
+## 1.0.1 (18 May 2017)
+
+BUG FIXES:
+
+  * #36 Block admin RSS feeds
+
 ## 1.0.0 (27 October 2016)
 
 CHANGES:

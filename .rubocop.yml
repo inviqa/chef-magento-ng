@@ -16,3 +16,6 @@ Style/HashSyntax:
 
 Style/SpaceBeforeFirstArg:
   Enabled: false
+
+Metrics/BlockLength:
+  Max: 75

@@ -1,8 +1,8 @@
 source 'https://rubygems.org'
 
-gem 'rake', '~> 11.1'
 gem 'berkshelf', '~> 4.3'
 gem 'chef', '~> 12.5'
+gem 'rake', '~> 11.1'
 
 group :integration do
   gem 'kitchen-vagrant', '~> 0.20'

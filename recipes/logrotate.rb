@@ -17,7 +17,7 @@
 # limitations under the License.
 #
 
-%w(apache nginx).each do |type|
+%w[apache nginx].each do |type|
   node[type]['sites'].each_pair do |name, site|
     next unless site['type'] == 'magento'
 
@@ -38,9 +38,11 @@
 
     logrotate_app "magento-#{name}" do
       path "#{config_path}/var/log/*.log"
-      magento['logrotate'].each do |key, value|
-        send key, value
-      end unless magento['logrotate'].nil?
+      unless magento['logrotate'].nil?
+        magento['logrotate'].each do |key, value|
+          send key, value
+        end
+      end
     end
   end
 end

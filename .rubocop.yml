@@ -14,8 +14,12 @@ Style/HashSyntax:
     - spec/**/*
     - Rakefile
 
-Style/SpaceBeforeFirstArg:
+Layout/SpaceBeforeFirstArg:
   Enabled: false
+  
+Lint/ScriptPermission:
+  Exclude:
+    - Rakefile
 
 Metrics/BlockLength:
   Max: 75

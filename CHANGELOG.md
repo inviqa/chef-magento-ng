@@ -1,3 +1,9 @@
+## 1.0.2 (13 June 2017)
+
+BUG FIXES:
+
+  * #37 Block admin RSS feeds within store code prefixed urls
+
 ## 1.0.1 (23 May 2017)
 
 BUG FIXES:

@@ -1,3 +1,9 @@
+## 1.0.3 (21 June 2017)
+
+BUG FIXES:
+
+  * #38 Improve RSS feed blocking on Apache HTTPD
+
 ## 1.0.2 (13 June 2017)
 
 BUG FIXES:

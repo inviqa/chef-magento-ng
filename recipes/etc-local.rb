@@ -33,15 +33,21 @@
     if Chef::Config[:solo]
       missing_attrs = %w[
         crypt_key
-      ].select { |attr| magento['app'][attr].nil? }.map { |attr| "node['#{type}']['sites']['#{name}']['magento']['app']['#{attr}']" }
+      ].select { |attribute| magento['app'][attribute].nil? }.map do |attribute|
+        "node['#{type}']['sites']['#{name}']['magento']['app']['#{attribute}']"
+      end
 
       unless missing_attrs.empty?
         raise "You must set #{missing_attrs.join(', ')} in chef-solo mode."
       end
     else
       # generate all passwords
-      node.set_unless['#{type}']['sites']['#{name}']['magento']['app']['#{attr}'] = secure_password
-      node.save
+      %w[
+        crypt_key
+      ].select { |attribute| magento['app'][attribute].nil? }.map do |attribute|
+        node.set_unless[type]['sites'][name]['magento']['app'][attribute] = secure_password
+        node.save
+      end
     end
 
     config_path = if site['capistrano']

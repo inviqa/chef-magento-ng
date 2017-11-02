@@ -1,3 +1,10 @@
+## 1.0.4 (1 November 2017)
+
+BUG FIXES:
+
+  * #39 Fix double-escaping the regular expression to deny access to RSS feeds.
+  * #40 Rubocop style issues
+
 ## 1.0.3 (21 June 2017)
 
 BUG FIXES:
@@ -26,7 +33,7 @@ CHANGES:
 
 BUG FIXES:
 
-  * #34 Remove ignored logrotate missingok option 
+  * #34 Remove ignored logrotate missingok option
 
 ## 0.5.0 (06 May 2016)
 

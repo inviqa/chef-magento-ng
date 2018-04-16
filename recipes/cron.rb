@@ -24,9 +24,7 @@
     include_recipe 'cron::default'
 
     primary_indicator_check = ''
-    if site['clustered']
-      primary_indicator_check = "bash -c '[ -f #{site['clustered']['primary_indicator']} ] && "
-    end
+    primary_indicator_check = "bash -c '[ -f #{site['clustered']['primary_indicator']} ] && " if site['clustered']
 
     magento = ConfigDrivenHelper::Util.immutablemash_to_hash(node['magento'])
 

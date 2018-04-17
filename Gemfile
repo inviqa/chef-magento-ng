@@ -16,7 +16,7 @@ end
 group :test do
   gem 'chefspec', '~> 7.2'
   gem 'foodcritic', '~> 6.2'
-  gem 'rubocop', '~> 0.39'
+  gem 'rubocop', '~> 0.55'
 end
 
 group :deployment do

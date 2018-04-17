@@ -37,9 +37,7 @@
         "node['#{type}']['sites']['#{name}']['magento']['app']['#{attribute}']"
       end
 
-      unless missing_attrs.empty?
-        raise "You must set #{missing_attrs.join(', ')} in chef-solo mode."
-      end
+      raise "You must set #{missing_attrs.join(', ')} in chef-solo mode." unless missing_attrs.empty?
     else
       # generate all passwords
       %w[

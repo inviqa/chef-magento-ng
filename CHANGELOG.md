@@ -1,3 +1,9 @@
+## 2.0.0 (16 April 2018)
+
+CHANGES:
+
+  * #41 Bring in config-driven-helper v3.0.0
+
 ## 1.0.4 (1 November 2017)
 
 BUG FIXES:

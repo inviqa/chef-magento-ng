@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 
 gem 'berkshelf', '~> 4.3'
 gem 'chef', '~> 12.5'
-gem 'rake', '~> 11.1'
+gem 'rake', '>= 12.3.3'
 
 group :cookbook_dependencies do
   gem 'aws-sdk', '~> 2.0'
